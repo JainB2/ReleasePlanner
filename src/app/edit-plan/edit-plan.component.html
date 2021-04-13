@@ -1,0 +1,285 @@
+<form #f="ngForm" (ngSubmit)="edit(f.value)" *ngFor="let p of plan$" class="tblHt">
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="LOB">LOB</label>
+            <!-- <select #lobId='ngModel' [(ngModel)]="p.lobId" id="lobName" name='lobName'
+            class="form-control ">
+            <option [value]>{{p.lobName}}</option>
+        </select> -->
+            <br><input #LobName="ngModel" [(ngModel)]="p.lobName" readonly id="lobId" type="text" name='LobName'>
+        </div>
+
+        <div class="col-md-6">
+            <label for="Planned Prod Release Date"> Release Date</label>
+            <!-- <br><input #ProdReleaseDate="ngModel" readonly  [(ngModel)]="p.prodReleaseDate" type="datetime-local" 
+                name="ProdReleaseDate" > -->
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #ProdReleaseDate="ngModel" [matDatepicker]="datePicker7" [(ngModel)]="p.prodReleaseDate"
+                    name='ProdReleaseDate' readonly>
+                <!-- <mat-datepicker-toggle matSuffix [for]="actualTimelinesForStagePlanMock1"></mat-datepicker-toggle> -->
+                <mat-datepicker #datePicker7></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form-group row">
+
+        <div class="col-md-6">
+            <label for="Application">Application Name</label>
+            <select #ApplicationName='ngModel' readonly [(ngModel)]="p.applicationName" id="ApplicationName"
+                name='ApplicationName' class="form-control">
+                <option [value]>{{p.applicationName}}</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="LOB">Enviroment</label>
+            <select #enviroment="ngModel" readonly [(ngModel)]="p.environment" id="lob" class="form-control"
+                name="Enviroment">
+                <option [value]>{{p.environment}}</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label>Production Plan Received</label>
+            <select #ProdPlanReceived="ngModel" [(ngModel)]="p.prodPlanReceived" name='ProdPlanReceived'
+                class="form-control ">
+                <option [value]>No</option>
+                <option [value]>Yes</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="">STG Mock</label>
+            <select #StgMockPlanReceive="ngModel" [(ngModel)]="p.stgMockReceived" name="StgMockReceived"
+                class="form-control ">
+                <option [value]>No</option>
+                <option [value]>Yes</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label>SPOC</label>
+            <!-- <select #SPOC="ngModel" [(ngModel)]="p.SPOC" name='spoc' class="form-control " multiple>
+                <option [value]>Ayush</option>
+                <option [value]>Ajeet</option>
+            </select> -->
+            <br><textarea #SPOC="ngModel" [(ngModel)]="p.spoc" id="Spoc" type="text" name='SPOC'></textarea>
+        </div>
+        <div class="col-md-6">
+            <label for="">RITM</label>:
+            <br><textarea #RITM="ngModel" [(ngModel)]="p.ritm" id="Ritm" type="text" placeholder="Enter Request Number"
+                name='RITM'></textarea>
+
+        </div>
+
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="">PT STG Baseline</label>
+            <!--  <br><input #PTSTGBaseline="ngModel"  [(ngModel)]="p.ptstgBaseline" type="datetime-local"
+                data-date-format="mm/dd/yyyy" name="PTSTGBaseline">
+        </div> -->
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #PTSTGBaseline="ngModel" [matDatepicker]="datePicker3" [(ngModel)]="p.ptstgBaseline"
+                    name='ptstgBaseline' readonly>
+                <!-- <mat-datepicker-toggle matSuffix [for]="actualTimelinesForStagePlanMock1"></mat-datepicker-toggle> -->
+                <mat-datepicker #datePicker3></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <label for="ATSTGBaseline">AT STG baseline</label>
+            <!-- <br><input #ATSTGBaseline="ngModel" [(ngModel)]="p.atstgBaseline" type="datetime-local"
+                data-date-format="mm/dd/yyyy" name="ATSTGBaseline"> -->
+
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #ATSTGBaseline="ngModel" [matDatepicker]="datePicker6" [(ngModel)]="date1"
+                    name='atstgBaseline'>
+                <mat-datepicker-toggle matSuffix [for]="datePicker6"></mat-datepicker-toggle>
+                <mat-datepicker #datePicker6></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="STGPlanFinalization">STG Plan Finalization</label>
+            <!--  <br><input #STGPlanFinalization="ngModel" readonly
+                [(ngModel)]='p.timelinesStgPlanFinalizationWithWalkthrough' type="datetime-local"
+                data-date-format="mm/dd/yyyy" name="TimelinesStgPlanFinalizationWithWalkthrough"> -->
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #STGPlanFinalization="ngModel" [matDatepicker]="datePicker4"
+                    [(ngModel)]="p.timelinesStgPlanFinalizationWithWalkthrough"
+                    name='timelinesStgPlanFinalizationWithWalkthrough' readonly>
+                <!-- <mat-datepicker-toggle matSuffix [for]="actualTimelinesForStagePlanMock1"></mat-datepicker-toggle> -->
+                <mat-datepicker #datePicker4></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+            <label for="ATSTGPlanFinalization">AT STG plan Finalization</label>
+            <!-- <br><input #ATSTGPlanFinalization="ngModel" [(ngModel)]="p.actualTimelinesforStageplanFinalization"
+                type="datetime-local" data-date-format="mm/dd/yyyy" name="ActualTimelinesforStageplanFinalization"> -->
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #ATSTGPlanFinalization="ngModel" [matDatepicker]="datePicker8" [(ngModel)]="date2"
+                    name='actualTimelinesforStageplanFinalization'>
+                <mat-datepicker-toggle matSuffix [for]="datePicker8"></mat-datepicker-toggle>
+                <mat-datepicker #datePicker8></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="PTSTGplanMock">PT STG plan Mock</label>
+            <!-- <br><input #PTSTGplanMock="ngModel" readonly  [(ngModel)]="p.timelineForStagePlanMock" type="datetime-local"
+                data-date-format="mm/dd/yyyy" name="timelineForStagePlanMock"> -->
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #PTSTGplanMock="ngModel" [matDatepicker]="datePicker5"
+                    [(ngModel)]="p.timelineForStagePlanMock" name='timelineForStagePlanMock'>
+                <mat-datepicker-toggle matSuffix [for]="datePicker5"></mat-datepicker-toggle>
+                <mat-datepicker #datePicker5></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+            <label for="actualTimelinesForStagePlanMock">AT STG plan Mock</label>
+            <!-- <br><input #actualTimelinesForStagePlanMock="ngModel" [(ngModel)]="p.actualTimelinesForStagePlanMock"
+                type="datetime-local" data-date-format="mm/dd/yyyy" name="actualTimelinesForStagePlanMock">
+                -->
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #actualTimelinesForStagePlanMock="ngModel"
+                    [matDatepicker]="actualTimelinesForStagePlanMock1" [(ngModel)]="date3"
+                    name='actualTimelinesForStagePlanMock'>
+                <mat-datepicker-toggle matSuffix [for]="actualTimelinesForStagePlanMock1"></mat-datepicker-toggle>
+                <mat-datepicker #actualTimelinesForStagePlanMock1></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="PT PROD UCR Plan Baseline">PT PROD UCR Plan Baseline</label>
+            <!--<br><input #timelinesForPRODUCRPlanBaseline="ngModel" readonly
+                [(ngModel)]="p.timelinesForPRODUCRPlanBaseline" type="datetime-local" data-date-format="mm/dd/yyyy"
+                name="TimelinesForPRODUCRPlanBaseline"> -->
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #timelinesForPRODUCRPlanBaseline="ngModel" [matDatepicker]="datePicker1"
+                    [(ngModel)]="p.timelinesForPRODUCRPlanBaseline" name='timelinesForPRODUCRPlanBaseline' readonly>
+                <!-- <mat-datepicker-toggle matSuffix [for]="actualTimelinesForStagePlanMock1"></mat-datepicker-toggle> -->
+                <mat-datepicker #datePicker2></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+
+        </div>
+
+        <div class="col-md-6">
+            <label for="ATPRODUCRPlanFinalization">PT PROD UCR Plan Finalization</label>
+            <!-- <br><input #ATPRODUCRPlanFinalization="ngModel"
+                [(ngModel)]="p.timelinesForPRODUCRPlanFinalizationWithWalkthroughAndFreeze" readonly type="datetime-local"
+                data-date-format="mm/dd/yyyy" name="ATPRODUCRPlanFinalization"> -->
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>AT STG plan Mock</mat-label> -->
+                <!-- #docregion toggle -->
+                <input matInput #timelinesForPRODUCRPlanFinalizationWithWalkthroughAndFreeze="ngModel"
+                    [matDatepicker]="datePicker1"
+                    [(ngModel)]="p.timelinesForPRODUCRPlanFinalizationWithWalkthroughAndFreeze"
+                    name='timelinesForPRODUCRPlanFinalizationWithWalkthroughAndFreeze' readonly>
+                <!-- <mat-datepicker-toggle matSuffix [for]="actualTimelinesForStagePlanMock1"></mat-datepicker-toggle> -->
+                <mat-datepicker #datePicker1></mat-datepicker>
+                <!-- #enddocregion toggle -->
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="STGMockFollow-up">STG Mock Follow-up</label>
+            <br><input #StgMockFollowUp="ngModel" [(ngModel)]="p.stgfollowUpCount" type="Text" name="StgfollowUpCount">
+        </div>
+
+        <div class="col-md-6">
+            <label for="ProdplanFollow-up">Prod Plan Follow-up</label>
+            <br><input #stgfollowUpCount="ngModel" [(ngModel)]="p.prodFollowUpCount" type="text"
+                name="ProdFollowUpCount">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="ServerAccess">Server Access</label>
+            <br><textarea #ServerAccess="ngModel" [(ngModel)]="p.serverAccess" type="Text"
+                name="ServerAccess"></textarea>
+        </div>
+
+        <div class="col-md-6">
+            <label for="dependencies">Dependencies</label>
+            <br><textarea #dependencies="ngModel" [(ngModel)]="p.dependencies" type="text"
+                name="Dependencies"></textarea>
+        </div>
+
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="Remarks">Remarks(500 character limit)</label>
+            <br><textarea #Remarks="ngModel" [(ngModel)]="p.remarks" type="Text" name="Remarks"
+                maxlength="500"></textarea>
+        </div>
+
+        <div class="col-md-6">
+            <label>Production WalkThrough</label>
+            <select #ProdWalkThrough="ngModel" [(ngModel)]="p.prodWalkThrough" name='ProdWalkThrough'
+                class="form-control ">
+                <option [value]>No</option>
+                <option [value]>Yes</option>
+            </select>
+        </div>
+
+
+    </div>
+
+    <div #hide *ngIf="hide" id="hide" class="alert alert-primary" role="alert" name="hide">
+        Plan updated successfully!!
+    </div>
+    <a href="displayPlan" class="btn btn-primary" name="">View All Plan</a>
+    <button type="submit" class="btn btn-primary" name="submit">Update</button>
+
+</form>

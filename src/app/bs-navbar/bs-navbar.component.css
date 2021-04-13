@@ -1,0 +1,22 @@
+.tblHt
+{
+    color: #9b9a9a;
+    font:18px  'OpenSans' white;
+        background:#1e1a4bef;
+        padding: 8px 13px;
+        font-size: large;
+        
+}
+
+.tblHt a:hover {background-color: rgb(68, 67, 67);}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #97d699;}
+
+.tblHt1
+{
+    color: #9b9a9a;
+    font:18px  'OpenSans';
+   
+}

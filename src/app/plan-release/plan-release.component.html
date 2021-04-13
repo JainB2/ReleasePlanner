@@ -1,0 +1,189 @@
+<!-- index.html -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+<!-- <h1 class="text-center text-primary">MIS-Release Planner</h1> -->
+
+<form #f="ngForm" (ngSubmit)="SubmitPlan(f.value)">
+  <div class="fontStyle">
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label for="LOB">LOB</label>
+        <select #lobId='ngModel' [(ngModel)]="lobId.value" (change)="GetApplication(lobId.value)" name='LobId' id="lob"
+          class="form-control" required>
+          <option [value]="-1">Select LOB</option>
+          <option *ngFor="let a of $lob" [value]="a.lobId">{{a.lobName}}</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="f.submitted && lobId.invalid">
+          <div *ngIf="lobId.errors.required">LOB is required</div>
+          <!-- <div *ngIf="ProdReleaseDate.error.minDate">Prod release date is required</div> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="Application">Application's Name</label>
+        <select #ApplicationId='ngModel' [(ngModel)]="ApplicationId.value" id="ApplicationName" name='ApplicationId'
+          class="form-control" multiple required>
+
+          <option *ngFor="let a of $Applications" [value]='a.applicationID'>{{a.applicationName}}</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="f.submitted && ApplicationId.invalid">
+          <div *ngIf="ApplicationId.errors.required ">Application name is required</div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="form-group row">
+
+      <div class="col-md-6">
+        <label for="LOB">Environment</label>
+        <select id="lob" class="form-control ">
+          <!--      
+        <option value="">QA</option>
+        <option value="">Staging</option> -->
+          <option [value]="">Production</option>
+          <option value="">DR</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="f.submitted && ApplicationId.invalid">
+          <div *ngIf="ApplicationId.errors.required ">Environment  is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        
+          <label for="Planned Prod Release Date">Planned Prod Release date</label>
+          <div class="form-group row">
+            &nbsp;&nbsp; <input #ProdReleaseDate="ngModel" [(ngModel)]="ProdReleaseDate.value" type="date"
+            data-date-format="mm/dd/yyyy" name="ProdReleaseDate" required><br/>
+      
+          </div>
+       
+          <div class="alert alert-danger" *ngIf="f.submitted && ProdReleaseDate.invalid">
+          <div *ngIf="ProdReleaseDate.errors.required">Prod release date is required</div>
+        </div>
+      </div>
+      
+
+    </div>
+
+  
+
+    <!-- 
+      <div class="card col-md-6" >
+        <label for="Stage Mock Plan Receive Date">Stage Mock Plan Receive Date</label>
+            <input type="datetime-local" data-date-format="mm/dd/yyyy">
+      </div>
+   
+  </div>
+
+  
+
+  <div class="form-group row">
+    
+  </div>
+
+  <div class="form-group row">
+      <div class="card col-md-6">
+        <label for="Planned Timelines for Stage plan Baseline">Planned Timelines for Stage plan Baseline</label>
+        <input type="datetime-local" data-date-format="mm/dd/yyyy"> 
+      </div>
+
+    <div class="card col-md-6">
+        <label for="Planned Timelines for Stage plan Baseline">Planned Timelines for Stage plan Baseline</label>
+        <input type="datetime-local" data-date-format="mm/dd/yyyy">
+        
+    </div>
+
+  </div>
+
+  <div  class="form-group row">
+    <div class="card col-md-6">
+        <label for="Actual Timelines for Stage plan Baseline">Actual Timelines for Stage plan Baseline</label>
+        <input type="datetime-local" data-date-format="mm/dd/yyyy">
+    </div>
+    <div class="card col-md-6">
+        <label for="Timelines for Stage plan Finalization with walkthrough">Timelines for Stage plan Finalization with walkthrough</label>
+    <input type="datetime-local" data-date-format="mm/dd/yyyy">
+    </div>
+  </div>
+
+
+  <div  class="form-group row">
+    <div class="card col-md-6">
+        <label for="Actual Timelines for Stage plan Finalization">Actual Timelines for Stage plan Finalization</label>
+        <input type="datetime-local" data-date-format="mm/dd/yyyy">
+    </div>
+    <div class="card col-md-6">
+        <label for="Timelines for Stage plan Mock">Timelines for Stage plan Finalization with walkthrough</label>
+    <input type="datetime-local" data-date-format="mm/dd/yyyy">
+    </div>
+  </div>
+
+  <div  class="form-group row">
+    <div class="card col-md-6">
+        <label for="Timelines for Stage plan Mock">Timelines for Stage plan Mock</label>
+        <input type="datetime-local" data-date-format="mm/dd/yyyy">
+    </div>
+    <div class="card col-md-6">
+        <label for="Actual Timelines for Stage plan Mock ">Actual Timelines for Stage plan Mock </label>
+    <input type="datetime-local" data-date-format="mm/dd/yyyy">
+    </div>
+  </div>
+
+  <div  class="form-group row">
+    <div class="card col-md-6">
+        <label for="Timelines for PROD UCR Plan Baseline">Timelines for PROD UCR Plan Baseline</label>
+        <input type="datetime-local" data-date-format="mm/dd/yyyy">
+    </div>
+    <div class="card col-md-6">
+        <label for="Timelines for PROD UCR Plan Finalization with walkthrough and Freeze ">Timelines for PROD UCR Plan Finalization with walkthrough and Freeze </label>
+    <input type="datetime-local" data-date-format="mm/dd/yyyy">
+    </div>
+  </div>
+  <div  class="form-group row">
+    <div class="card col-md-6">
+        <label for="Production plan Follow-up">Production plan Follow-up</label>
+        <input type="text">
+    </div>
+    <div class="card col-md-6">
+        <label for="Stage plan Follow-up">Stage plan Follow-up</label>
+    <input type="text">
+    </div>
+  </div> -->
+
+
+    <!--<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+      Dropdown Example
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+  </div>-->
+    <!--<div class="form-group row">
+    <div class="col-sm-2">Checkbox</div>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck1">
+        <label class="form-check-label" for="gridCheck1">
+          Example checkbox
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </div>-->
+
+  </div>
+
+
+  <button type="submit" class="btn btn-primary">SUBMIT</button>
+</form>

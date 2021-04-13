@@ -1,0 +1,31 @@
+.form-control
+{
+  width:50%;
+}
+
+.tblHt
+{
+    color: #1b1a1a;
+    font:15px  'OpenSans';
+    background:#8680bbef;
+    padding: 10px 20px;
+    column-count: 2;
+    column-gap: 20px;
+    border-style: double;
+
+}
+
+
+.md-datepicker
+{
+    border:none;
+    padding:5px 0;
+    width: 100%;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    font-size:15px;
+    font-weight:500;
+    color: #000000;
+    background: white;
+
+
+}

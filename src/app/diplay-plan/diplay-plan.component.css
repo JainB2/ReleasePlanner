@@ -1,0 +1,98 @@
+.pointerCursor
+{
+    cursor: pointer;
+}
+
+.filter
+{
+    margin-bottom: 0 !important;
+}
+
+.no_T_Mar
+{
+    margin-top: 0 !important;   
+}
+.rightTbl
+{
+    margin-left: 120px;
+}
+
+.tableScrollBotPad
+{
+    padding-bottom: 10px;
+}
+
+@media screen and (min-width:1280px)
+{
+    .tableScroll{
+        overflow-x: auto;
+    }
+}
+
+.dataTable td, .dataTable th{
+padding:8px 13px;
+}
+
+@media scren and (min-width:760px)
+{
+    .dataTable .textWdth
+    {
+        width:100%;
+    }
+}
+
+.icsp_dataTable
+{
+    border-top:1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    text-transform: uppercase;
+    font-family: 'openSans-Semibold';
+    background:black;
+
+}
+
+.tblHt
+{
+    color: #9b9a9a;
+    font:14px  'OpenSans';
+    background:#1e1a4bef;
+    padding: 8px 13px;
+    
+    
+
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+.tblHt1
+{
+    color: #666666;
+    font:14px  'OpenSans';
+    background: #ffffff;
+    padding: 8px 13px;
+}
+
+.tblHt2
+{
+    color: #666666;
+    font:14px  'OpenSans';
+    background: #ffffff;
+    padding: 8px 13px;
+}
+
+.tblHt3
+{
+    color: #666666c4;
+    font:14px  'OpenSans';
+    background: #ffffff;
+    padding: 8px 13px;
+}
+
+.btn
+{
+margin-left:auto;
+margin-right:0px;
+}

@@ -1,0 +1,71 @@
+.panel
+{
+       color: #080808;
+       font:50px 'OpenSans' rgb(15, 15, 15);
+        background:#6b84e7ef;
+        padding: 8  px 13px;
+        
+}
+.row
+{
+    margin-left:auto
+}
+.cardClass
+{
+    background-color: white;
+    font:50px 'OpenSans' rgb(15, 15, 15);
+    color:black;
+}
+
+.tblHt2
+{
+    color: #666666;
+    font:14px  'OpenSans';
+    background: #ffffff;
+    padding: 8px 13px;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color:  rgba(233, 243, 232, 0.664);
+    background-clip: border-box;
+    border: 5px solid rgba(0, 0, 0, 0.125);
+    border-radius: 3.50rem;
+}
+
+.card1 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color:rgba(90, 208, 238, 0.548);
+    background-clip: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.125);
+    border-radius: 3.50rem;
+    margin-right: 65px;
+    margin-left: 4px;
+    margin-bottom: 2px;
+}
+
+H4 { text-align: center }
+
+.crdTab
+{
+    padding: 15px;
+    padding-bottom: 0px;
+    border-style: ridge;
+}
+
+.tblHt2
+{
+    color: #666666;
+    font:25px  'OpenSans';
+    
+    padding: 8px 13px;
+    background-color:rgb(222, 225, 230)
+}
+

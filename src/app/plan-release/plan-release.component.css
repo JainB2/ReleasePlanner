@@ -1,0 +1,15 @@
+.fontStyle
+{
+    border-top:1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    text-transform: uppercase;
+    font-family: 'openSans-Semibold';
+    font:40px;
+    
+}
+
+.form-group
+{
+    margin-bottom: 40px;
+   
+}

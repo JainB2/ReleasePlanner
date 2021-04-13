@@ -1,0 +1,321 @@
+<br /><br />
+<div>
+
+</div>
+<br />
+<div class="card">
+  <div class="" (click)='isExpanded=!isExpanded'>
+    <h4 class="card-link " data-toggle="collapse">
+      Advance Filter
+    </h4>
+  </div>
+  <form #FilterInput='ngForm'>
+    <div id="collapseOne" class="collapse show" *ngIf="isExpanded">
+
+      <div class="form-group">
+        <div class="row ">
+          <div class="col-md-4 ">
+            <label for="LOB">LOB</label>
+            <select #lobId='ngModel' [(ngModel)]="lobId.value" (change)="GetApplication(lobId.value)" name='lob'
+              id="lob" class="form-control" name='LobId'>
+              <option [value]="-1">Select LOB</option>
+              <option *ngFor="let a of $lob" [value]="a.lobId">{{a.lobName}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="Application">Application</label>
+            <select #ApplicationId='ngModel' [(ngModel)]="ApplicationId.value" id="ApplicationName" name='ApplicationId'
+              class="form-control" name='ApplicationId'>
+
+              <option *ngFor="let a of $Applications" [value]="a.applicationID">{{a.applicationName}} </option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="prodDate">Prodcution Release Date</label>
+            <input #ProdReleaseDate='ngModel' [(ngModel)]='ProdReleaseDate.value' [value] class="form-control"
+              id="txtAppName" type="date" name='ProdReleaseDate'>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <button type="button" (click)="GetPlan(lobId.value,ApplicationId.value,ProdReleaseDate.value)"
+              class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </form>
+
+
+
+</div>
+<br /><br />
+
+
+<div>
+  <div class="tableScroll" #TABLE >
+    <div class="tableScrollBotPad">
+      <div class="row">  
+        <div class="col-sm-12">  
+          <button (click)="ExportTOExcel()" class="btn btn-success">ExportTOExcel</button> </div>  
+      </div> 
+      <table  width="100%" cellspacing="0" cellpadding="0" border="0" class="dataTable">
+        <thead>
+          <tr class="table table-striped">
+            <th></th>
+            <th>APPLICATION</th>
+            <th>RELEASE DATE</th>
+            <!-- <th>DEPENDENCIES</th> -->
+           
+
+            <th>Task Details</th>
+          </tr>
+        </thead>
+        <tbody class="table table-striped tblHt1">
+          <tr *ngFor="let p of $MasterPlan  | paginate: { itemsPerPage: 5, currentPage: pa }">
+            <!-- <td>
+              <div class="btn-group"> -->
+                <!-- <a [routerLink]="['../plan/',p.planId]" value="p.planId" class="fa fa-pencil"
+                  data-toggle="tooltip" data-placement="top" title="Click for view/edit">
+                </a>&nbsp;&nbsp; -->
+                <!-- <a #planId  (click)="GetMasterPlanDetailsById(p.planId)"[value]="p.planId"
+                  class="fa fa-trash-o" data-placement="top" title="Click for delete record"></a> -->
+              <!-- </div>
+            </td> -->
+            <td></td>
+            <td><a [routerLink] value="p.planId" (click)="open(content,p.planId,p.applicationName,p.prodReleaseDate)">{{p.applicationName}}</a></td>
+           
+            <td>{{p.prodReleaseDate}}</td>
+          
+            <!-- <td></td> -->
+            
+            <td>
+              <div class="tableScroll" >
+                <div class="tableScrollBotPad">
+                  <!-- <div class='table-responsive'> -->
+                  <table #insideTable width="100%" cellspacing="0" cellpadding="0" border="0" class="dataTable">
+                    <thead style="background-color:rgb(222, 225, 230);">
+                      <tr class="table table-striped">
+                        <th>Task Name</th>
+                        <!-- <th>TaskStatus</th> -->
+                        <th>Start Date-Time</th>
+                        <th>End Date-Time</th>
+                        <th>Duration(HH:MM)</th>
+                        <th></th>
+                       </tr>
+                    </thead>
+                    <tbody class="table table-striped tblHt1">
+                      <tr *ngFor="let m of p.task"  >
+                       <td *ngIf="m.taskId==0">No Task available for this deployment</td>
+                         
+                        <td *ngIf="m.taskId!=0" #taskId [value]='m.taskId'>{{m.taskName}}</td>
+                        <!-- <td *ngIf="m.taskId!=0"><label *ngIf="!editable">{{m.taskStatus}}</label></td> -->
+                        <td *ngIf="m.taskId!=0">{{m.startDateTask }}</td>
+                        <td *ngIf="m.taskId!=0">{{m.endDateTask }}</td>
+                        <td *ngIf="m.taskId!=0">{{m.durationTask * 1000 * 60| date:'HH:mm':'UTC' }}</td>
+                        <td>
+                          <a #planId [routerLink]="['/master-plan']" *ngIf="m.taskId!=0" (click)="deleteTask(p.planId,m.taskId)" [value]="p.planId" class="fa fa-trash-o" data-placement="top" title="Click for delete record">
+                          </a>
+                        </td>
+                      <!-- <td *ngIf="!editable">{{m.remarks}}</td> -->
+                   </tr>
+                     </tbody>
+                  </table>
+                </div>
+              </div>
+            </td>
+
+          </tr>
+
+
+        </tbody>
+
+      </table>
+      <pagination-controls (pageChange)="pa = $event"></pagination-controls>
+
+      <!-- </div> -->
+
+
+    </div>
+  </div>
+
+</div>
+<!--Modal-->
+
+
+<ng-template #content let-modal>
+  <form #f1="ngForm"
+    (ngSubmit)="CreateMasterPlan(StartDateTime.value,Duration.value,Tasks.value,TaskValue.value,Remarks.value)">
+    <div class="modal-header">
+      
+      <div class="tblHt2">{{ApplicationName}} Releasing on {{ProdReleaseDate | date}}</div>
+      <!-- <h4 class="modal-title" id="modal-basic-title">View/Update Master Plan for</h4> -->
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="startDate">Start Date-Time</label>
+              <input #StartDateTime="ngModel" [(ngModel)]="startDate"  class="form-control" 
+                type="datetime-local" (ngValue)="startDate.value" name="StartDateTime" required>
+       
+                <!-- <input #StartDateTime="ngModel" [(ngModel)]="startDate" *ngIf="startDate==null || startDate==''" class="form-control" 
+                type="datetime-local" name="StartDateTime" required>  -->
+                <div class="alert alert-danger"   *ngIf="StartDateTime.touched && StartDateTime.invalid">
+                  <div *ngIf="StartDateTime.errors.required">Start Date-Time is required</div>
+                </div>
+                
+            </div>
+            <div class="col-md-6">
+              <label for="Duration">Duration(HH:MM)</label>
+              <div class="row">
+                <!-- <input #Duration class="form-control" id="Duration1" type="text" name='Duration'
+                style="width:60px;" placeholder="hh">: -->
+                <input #Duration="ngModel" [(ngModel)]="duration" class="form-control"  name='Duration'
+                  style="width:60px;" placeholder="HH"  required >
+                 <input #Duration1="ngModel" [(ngModel)]="duration1" class="form-control"  name='Duration1'
+                  style="width:60px;" placeholder="MM"  required>
+              </div>
+               <div class="alert alert-danger" *ngIf="Duration.invalid">
+                <div *ngIf="Duration.errors.required">Duration is required</div>
+                <div *ngIf="Duration.errors.min">Duration should be greater than 0</div>
+            </div>
+
+            </div>
+          </div>
+
+
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <label for="Tasks2">Tasks</label>
+              <select #Tasks="ngModel" [(ngModel)]="Tasks.value"  (change)="GetTaskDetail(Tasks.value,planId)" id="Tasks1" class="form-control" name='Tasks' required>
+                <option>Select Task</option>
+                <option *ngFor="let a of $Tasks" [value]="a.taskId">{{a.taskName}}</option>
+
+              </select>
+
+              <div class="alert alert-danger" *ngIf="Tasks.touched && Tasks.invalid">
+                <div *ngIf="Tasks.errors.required">Task name  is required</div>
+              </div>
+            </div>
+            <!--upper part-->
+            <!-- <div class="col-md-6">
+              <label for="Tasks1">Task Status</label>
+              <select #TaskValue="ngModel" [(ngModel)]="TaskValue.value" class="form-control" name='TaskValue' [value]="taskValue" required>
+                <option [value]>Select Task Status</option>
+                <option [value]>Open</option>
+                <option [value]>Inprogress</option>
+                <option [value]>Closed</option>
+
+              </select> 
+
+              <div class="alert alert-danger" *ngIf="TaskValue.touched && TaskValue.invalid">
+                <div *ngIf="TaskValue.errors.required">Task status  is required</div>
+              </div>
+            </div> -->
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="Remarks">Remarks(500 character limit)</label>
+              <br><textarea #Remarks="ngModel" [(ngModel)]="remarks" type="Text" name="Remarks" 
+                maxlength="500"></textarea>
+            </div>
+            <div class="alert alert-danger" *ngIf="Remarks.invalid">
+              <div *ngIf="Remarks.errors.maxlength">Maximum character limit is 500</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for=""></label>
+              <a class="btn btn-primary" type="submit"
+                (click)="CreateMasterPlan(StartDateTime.value,Duration.value,Tasks.value,Remarks.value)">
+                <i class="fa fa-plus" aria-hidden="true"></i>Add/Update Task</a>
+
+            </div>
+          </div>
+          <br />
+
+          <!-- <form #f2="ngForm"
+            (ngSubmit)="EditMasterPlan(StartDateTime.value,Duration.value,taskId.value,taskStatus1.value,remarks.value)">
+            <div>
+              <div class="tableScroll">
+                <div class="tableScrollBotPad">
+                   <div class='table-responsive'> -->
+                  <!-- <table width="100%" cellspacing="0" cellpadding="0" border="0" class="dataTable">
+                    <thead style="background-color:rgb(222, 225, 230);">
+                      <tr class="table table-striped">
+                        <th>Task Name</th>
+                        <th>TaskStatus</th>
+                        <th>Start Date-Time</th>
+                        <th>End Date-Time</th>
+                        <th>Remark's</th>
+                        <th>Update by</th>
+                      </tr>
+                      <tr>
+
+                      </tr>
+                    </thead>
+                    <tbody class="table table-striped tblHt1">
+                      <tr *ngFor="let m of $MasterPlan">
+                        <td #taskId [value]='m.taskId'>{{m.taskName}}</td>
+                        <td> <select #taskStatus1 (change)="selectChangeHandler($event)" class="form-control"
+                            style="width: 70px;" *ngIf="editable">
+                            <option value>Select Task Status</option>
+                            <option value="Open">Open</option>
+                            <option value="Inprogress">Inprogress</option>
+                            <option value="Closed">Closed</option>
+                          </select><label *ngIf="!editable">{{m.taskStatus}}</label></td>
+                        <td>{{m.startDateTask | date :  "short"}}</td>
+                        <td>{{m.endDateTask | date :  "short"}}</td>
+
+                        <td><textarea #remarks [value]="m.remarks" type="Text" name="Remarks" maxlength="500"
+                            [readonly]="!editable"></textarea></td>
+                        <td></td>
+                         <td *ngIf="!editable">{{m.remarks}}</td> -->
+                        <!-- <td>
+                          <button type="button" class="btn btn-secondary"
+                            (click)="save(taskId.value,taskStatus.value,remarks.value)" type="submit">Save</button>
+                          <button type="submit" class="btn btn-secondary" (click)="edit()">Edit</button>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+
+                </div>
+              </div>
+            </div>
+          </form> --> 
+
+        </div>
+      </form>
+    </div>
+    <div *ngIf="insertStatus=='1'" class="alert alert-primary">Task submitted successfully</div>
+    <div *ngIf="insertStatus=='2'" class="alert alert-primary">Task updated successfully</div>
+
+    <div class="modal-footer">
+
+      <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+      <button type="submit" class="btn btn-outline-dark">Edit</button> -->
+    </div>
+  </form>
+</ng-template>
+
+
+<hr>
+
+<!-- <pre>{{ closeResult }}</pre> -->

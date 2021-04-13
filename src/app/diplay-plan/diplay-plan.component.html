@@ -1,0 +1,182 @@
+<br /><br />
+<div>
+  <div class="card">
+    <div class=".filter .no_T_Mar accordianTab" style="background-color: #e3f2fd;" (click)='isExpanded=!isExpanded'>
+      <a class="card-link " data-toggle="collapse">
+        Advance Filter
+      </a>
+    </div>
+    <form #FilterInput='ngForm'>
+      <div id="collapseOne" class="collapse show" *ngIf="isExpanded">
+
+        <div class="form-group">
+          <div class="row tblHt2">
+            <div class="col-md-4 ">
+              <label for="LOB">LOB</label>
+              <select #lobId='ngModel' [(ngModel)]="lobId.value" (change)="GetApplication(lobId.value)" name='lob'
+                id="lob" class="form-control" name='LobId'>
+                <option [value]="0">Select LOB</option>
+                <option *ngFor="let a of $lob" [value]="a.lobId">{{a.lobName}}</option>
+              </select>
+            </div>
+
+            <div class="col-md-4 tblHt2">
+              <label for="Application">Application</label>
+              <select #ApplicationId='ngModel' [(ngModel)]="ApplicationId.value" id="ApplicationName"
+                name='ApplicationId' class="form-control" name='ApplicationId'>
+                <option [value]="0">Select Application</option>
+                <option *ngFor="let a of $Applications" [value]="a.applicationID">{{a.applicationName}} </option>
+             
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="prodDate">Prodcution Release Date</label>
+              <input #ProdReleaseDate='ngModel' [(ngModel)]='ProdReleaseDate.value' [value] class="form-control"
+                id="txtAppName" type="date" name='ProdReleaseDate'>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <button type="button" (click)="RemoveFilter()"
+                class="btn btn-primary"><i class="" aria-hidden="true"> Remove Filter</i></button>
+
+              <button type="button" (click)="GetPlan(lobId.value,ApplicationId.value,ProdReleaseDate.value)"
+                class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+    </form>
+
+
+
+  </div>
+  <br /><br />
+  <div>
+    <div class="tableScroll" #TABLE>
+      <div class="tableScrollBotPad">
+        <div class="row">  
+          <div class="col-sm-12">  
+            <button (click)="ExportToExcel()" class="btn btn-success">ExportTOExcel</button> </div>  
+        </div> 
+        <!-- <div class='table-responsive'> -->
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" class="dataTable">
+          <thead>
+            <tr class="tblHt">
+              <th></th>
+              <th>APPLICATION</th>
+              <!-- <th>STATUS</th> -->
+              <th>RELEASE DATE</th>
+
+              <th>STG MOCK</th>
+              <th>PROD PLAN RECEIVED</th>
+              <th>SPOC</th>
+              <th>RITM</th>
+              <th>SERVER ACCESS</th>
+              <th>DEPENDENCIES</th>
+              <th>PROD WALK THROUGH</th>
+              <th>STG Mock Follow-up</th>
+              <th>Prod plan Follow-up</th>
+
+              <th>REMARK's</th>
+              <!-- <th>PT STG Baseline</th> -->
+              <!-- <th>AT STG Baseline</th>
+                      <th>STG Plan Finalization</th>
+                      <th>AT STG plan</th>
+                      <th>PT STG plan Mock</th>
+                      <th>AT STG plan Mock</th>
+                      <th>STG Mock Follow-up</th>
+                      <th>Prod plan Follow-up</th> -->
+              <!-- <th>PT PROD UCR Plan Baseline</th> -->
+              <!-- <th>AT PROD UCR Plan Finalization</th>
+                      <th>Production plan Follow-up</th> -->
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="tblHt1">
+            <tr *ngFor="let p of plan$  | paginate: { itemsPerPage: 5, currentPage: pa }">
+              <td>
+                <div class="btn-group"><a [routerLink]="['../plan/',p.planId]" value="p.planId"
+                  
+                    class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Click for view/edit"></a>&nbsp;&nbsp;
+                  <a #planId [routerLink]="['/displayPlan']" (click)="delete(planId.value)" [value]="p.planId" class="fa fa-trash-o" data-placement="top" title="Click for delete record"></a>
+                </div>
+              </td>
+              <td id="p.applicationId">{{p.applicationName}}</td>
+              <!-- <td>{{p.Status}}</td> -->
+              <td>{{p.prodReleaseDate | date:'dd-MM-yyyy'}}</td>
+              <td>{{p.stgMockReceived}}</td>
+              <td>{{p.prodPlanReceived}}</td>
+              <td>{{p.spoc}}</td>
+              <td>{{p.ritm}}</td>
+              <td>{{p.serverAccess}}</td>
+              <td>{{p.dependencies}}</td>
+              <td>{{p.prodWalkThrough}}</td>
+              <td>{{p.stgfollowUpCount}}</td>
+              <td>{{p.prodFollowUpCount}}</td>
+              <td>{{p.remarks}}</td>
+
+
+
+
+
+
+              <!-- <td>{{p.ptstgBaseline | date}}</td>
+                      <td>{{p.atstgBaseline | date}}</td>
+                      <td>{{p.timelinesStgPlanFinalizationWithWalkthrough | date}}</td>
+                      <td>{{p.actualTimelinesforStageplanFinalization  | date}}</td>
+                      <td>{{p.timelineForStagePlanMock | date}}</td>
+                      <td>{{p.actualTimelinesForStagePlanMock | date}}</td> -->
+              
+              <!-- <td>{{p.timelinesForPRODUCRPlanBaseline | date}}</td>
+                      <td>{{p.timelinesForPRODUCRPlanFinalizationWithWalkthroughAndFreeze | date}}</td> -->
+              <td></td>
+
+            </tr>
+
+            <!-- <tr >
+
+                      <td><div class="btn-group"><button type="button" class="fa fa-pencil"></button>
+                      <button type="button" class="fa fa-trash-o"></button></div></td>
+                        <td>EDMS</td>
+                        <td>No</td>
+                        <td>23-10-2020</td>
+                        <td>No</td>
+                        <td>5-Jul-2020</td>
+                        <td>5-jul-20</td>
+                        <td>10-Jul-2020</td>
+                        <td>Milestone Breached</td>
+                        <td>16-jul-2020</td>
+                        <td>17-Jul-2020</td>
+                        
+                        <td>2</td>
+                        <td>26-Jul-20</td>
+                        <td>29-Jul-20</td>
+                        <td>3</td>
+                        <td></td>
+                        <td><button type="button" ><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                  
+                      </tr> -->
+          </tbody>
+
+        </table>
+        <pagination-controls (pageChange)="pa = $event"></pagination-controls>
+
+        <!-- </div> -->
+
+
+      </div>
+    </div>
+
+  </div>
+
+  <div>
+    <a  class="btn btn-primary" href="plan-release" ><i  class="fa fa-plus" aria-hidden="true"></i>Add Plan</a>
+  
+  </div>
